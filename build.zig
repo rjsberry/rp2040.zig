@@ -10,12 +10,12 @@ const ExecutableOptions = std.Build.ExecutableOptions;
 const Step = std.Build.Step;
 const Target = std.Target;
 
-/// Compiles the `rpi_pico` project.
+/// Compiles the `rp2040` project.
 ///
 /// Adds two public modules:
 ///
-/// * `rpi_pico_startup`
-/// * `rpi_pico`
+/// * `rp2040_startup`
+/// * `rp2040`
 pub fn build(b: *std.Build) !void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
@@ -25,7 +25,7 @@ pub fn build(b: *std.Build) !void {
         .optimize = optimize,
     });
 
-    _ = b.addModule("rpi_pico_startup", .{
+    _ = b.addModule("rp2040_startup", .{
         .source_file = .{ .path = "startup/main.zig" },
         .dependencies = &.{
             .{
@@ -38,7 +38,7 @@ pub fn build(b: *std.Build) !void {
 
 /// Adds a new Raspberry Pi Pico firmware executable.
 ///
-/// This will automatically link to `rpi_pico_startup` and `rpi_pico`. It will
+/// This will automatically link to `rp2040_startup` and `rp2040`. It will
 /// also configure linking the firmware with a precompiled second stage
 /// bootloader between `0x010000000` and `0x010000100` in flash.
 ///
@@ -55,14 +55,14 @@ pub fn addExecutable(b: *std.Build, options: ExecutableOptions) *Step.Compile {
 
     const executable = b.addExecutable(options2);
 
-    const rpi_pico_dep = b.dependency("rpi_pico", .{
+    const rp2040_dep = b.dependency("rp2040", .{
         .target = options2.target,
         .optimize = options2.optimize,
     });
 
     executable.addModule(
-        "rpi_pico_startup",
-        rpi_pico_dep.module("rpi_pico_startup"),
+        "rp2040_startup",
+        rp2040_dep.module("rp2040_startup"),
     );
 
     cortex_m.link(executable, @embedFile("memory.ld")) catch |err| {
