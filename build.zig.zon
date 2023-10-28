@@ -3,8 +3,8 @@
     .version = "0.1.0",
     .dependencies = .{
         .cortex_m = .{
-            .url = "https://github.com/rjsberry/cortex_m.zig/archive/293642393dc7e8685aee19b8babbc5bceaaecca4.tar.gz",
-            .hash = "12206d3337a727b590a93dab19c4a42ec8a21f61458f75ae49378253dacae5d8665c",
+            .url = "https://github.com/rjsberry/cortex_m.zig/archive/db538e12b6dea9f22a6f711543a8a1eb765d1870.tar.gz",
+            .hash = "122099b4ff53beec5965fd9ec703aca32ba06df748be80465f9f42d2535d297e1676",
         },
     },
 }
